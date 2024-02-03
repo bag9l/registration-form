@@ -1,16 +1,16 @@
 import {
-  Button,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormHelperText,
-  InputLabel,
-  Link,
-  MenuItem,
-  Select,
-  Stack,
-  TextField,
-  Typography,
+    Button,
+    Checkbox,
+    FormControl,
+    FormControlLabel,
+    FormHelperText,
+    InputLabel,
+    Link,
+    MenuItem,
+    Select,
+    Stack,
+    TextField,
+    Typography,
 } from "@mui/material";
 import {Link as RouterLink} from "react-router-dom";
 import {useForm} from "react-hook-form";
@@ -19,7 +19,8 @@ import userService from "../../services/UserService";
 import {Sex} from "../../enums/Sex";
 
 const RegisterForm = () => {
-    const [isChecked, setIsChecked] = useState(false);
+    const [agreeTermsOfUse, setAgreeTermsOfUse] = useState(false);
+    const [sex, setSex] = useState("");
 
     const {
         register,
@@ -34,6 +35,8 @@ const RegisterForm = () => {
         try {
             await userService.registerUser(data);
             reset();
+            setAgreeTermsOfUse(false);
+            setSex("");
         } catch (err) {
             console.error(err);
         }
@@ -121,7 +124,8 @@ const RegisterForm = () => {
                             message: "Field is required!",
                         },
                     })}
-                    defaultValue={""}
+                    value={sex}
+                    onChange={(e) => setSex(e.target.value)}
                 >
                     <MenuItem value={Sex.MALE}>Male</MenuItem>
                     <MenuItem value={Sex.FEMALE}>Female</MenuItem>
@@ -141,7 +145,9 @@ const RegisterForm = () => {
                                     message: "You must agree to the terms of use!",
                                 },
                             })}
-                            onChange={(e) => setIsChecked(e.target.checked)}
+                            value={agreeTermsOfUse}
+                            checked={agreeTermsOfUse}
+                            onChange={(e) => setAgreeTermsOfUse(e.target.checked)}
                         />
                     }
                     label={
@@ -155,7 +161,7 @@ const RegisterForm = () => {
                 />
             </Stack>
 
-            <Button variant="contained" type="submit" disabled={!isChecked}>
+            <Button variant="contained" type="submit" disabled={!agreeTermsOfUse}>
                 Create Account
             </Button>
         </Stack>
