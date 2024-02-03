@@ -1,6 +1,5 @@
 import * as React from "react";
 import { ThemeProvider, CssBaseline, createTheme } from "@mui/material";
-import "@fontsource/montserrat";
 
 export const theme = createTheme({
   palette: {
