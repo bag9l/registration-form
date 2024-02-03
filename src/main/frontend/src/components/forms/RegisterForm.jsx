@@ -30,7 +30,6 @@ const RegisterForm = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       await userService.registerUser(data);
     } catch (err) {
